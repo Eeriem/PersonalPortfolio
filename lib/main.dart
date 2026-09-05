@@ -84,7 +84,7 @@ class PortfolioScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Profile Picture
+                  // Profile Picture (Updated with mike.jpg)
                   Container(
                     width: 120,
                     height: 120,
@@ -96,10 +96,11 @@ class PortfolioScreen extends StatelessWidget {
                         width: 3,
                       ),
                     ),
-                    child: Icon(
-                      Icons.person,
-                      size: 70,
-                      color: Colors.purple.shade700,
+                    child: ClipOval(
+                      child: Image.asset(
+                        'assets/mike.jpg',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
 
