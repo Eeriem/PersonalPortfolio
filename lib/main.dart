@@ -84,7 +84,6 @@ class PortfolioScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Profile Picture (Updated with mike.jpg)
                   Container(
                     width: 120,
                     height: 120,
