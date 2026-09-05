@@ -1,0 +1,46 @@
+name: Deploy Flutter Web to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Triggers the build whenever you push to the main branch
+
+permissions:
+  contents: write # Allows the tool to push the compiled site to your gh-pages branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Setup Java Environment (Required for Flutter/Java tooling dependencies)
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      # 3. Setup Flutter Environment
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      # 4. Install dependencies
+      - name: Install Dependencies
+        run: flutter pub get
+
+      # 5. Build the production Flutter Web app with the correct repository base URL
+      - name: Build Web App
+        run: flutter build web --release --base-href "/PersonalPortfolio/"
+
+      # 6. Deploy the compiled files ('build/web') to the 'gh-pages' deployment branch
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages # The target branch where the production web build will live
+          folder: build/web # The folder the action should deploy
